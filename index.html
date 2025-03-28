@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Login</title>
+</head>
+<body>
+    <div id="container" class="container">
+        <h3 class="header-box">Login in to your Account</h3>
+        <hr style="border-top:1px dotted #ccc;"/>
+        <div class="col-md-6">
+            <form>
+                <div class="form-group">
+                    <label id="usernamelabel">Username:</label>
+                    <input type="text" class="form-control" id="username" />
+                </div>
+                <div class="form-group">       
+                    <label id="passwordlabel">Password :</label>
+                    <input type="password" class="form-control" id="password"/>
+                </div>
+                <section class="options">
+                    <div class="remember">
+                        <input type="checkbox" id="check">
+                        <label for="check">Remember me</label>
+                    </div>
+                    <div class="forgot">
+                        <a href="#">Forgot password?</a>
+                    </div>
+                </section>
+                <span id="msg"></span>
+                <br />
+                <span id="tries">You have 3 attempts left.</span>
+                <br />
+                <button class="btn btn-primary" type="button" id="login" onclick="userLogin();">Login</button>
+                <br />
+                <button class="btn btn-success" type="button" id="reset" onclick="resetAll();" style="display:none;">Reset</button>
+                <span id="register" class="register"><link href="#">Don't have an account? <a href="#"> Register </a></span>
+            </form>
+        </div>
+    </div>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(-45deg, #185a9d, #43cea2);
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 400px;
+}
+
+.header-box {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 15px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.input-container label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: white;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.register {
+    font-size: 14px;
+    color: white;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+    gap: 5px;  
+    color: white;
+}
+
+input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.forgot a {
+    color: #4ecdc4; 
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.forgot a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+button {
+    margin-top: 15px;
+    padding: 12px 20px;
+    border: none;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+button#login {
+    background: #4ecdc4;
+    color: white;
+}
+
+button#login:hover {
+    background: #369b9b;
+}
+
+button#reset {
+    background: #ff6b6b;
+    color: white;
+    display: none;
+}
+
+button#reset:hover {
+    background: #d94343;
+}
+
+#msg {
+    font-size: 14px;
+    font-weight: bold;
+    color: red;
+}
+
+#tries {
+    font-size: 14px;
+    color: white;
+}
+</style>
+
+<script>
+var attempt = 3;
+
+function resetAll() {
+    attempt = 3;
+    document.getElementById("username").disabled = false;
+    document.getElementById("password").disabled = false;
+    document.getElementById("login").disabled = false;
+    document.getElementById("msg").innerHTML = "";
+    document.getElementById("reset").style.display = "none";
+	tries.innerHTML = "You have " + attempt + " attempts left.";
+}
+
+function userLogin() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    var msg = document.getElementById("msg"); 
+
+    if (username == "" || password == "") {
+        alert("Please complete the required fields!");
+        return; 
+    }
+
+    var isValid = false; 
+
+    while (attempt > 0) { 
+        if (username == "admin" && password == "12345678") {
+			msg.innerHTML = "Login Credentials Succesful";
+            alert("Login successfully");
+            location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+            isValid = true;
+            break; 
+        } else {
+            attempt--;
+            msg.innerHTML = "<center class='text-danger'>Invalid username or password</center>";
+            alert("You have " + attempt + " login attempts left!");
+			tries.innerHTML = "You have " + attempt + " attempts left.";
+
+            if (attempt == 0) {
+                document.getElementById("username").disabled = true;
+                document.getElementById("password").disabled = true;
+                document.getElementById("login").disabled = true;
+                document.getElementById("reset").style.display = "inline";
+                msg.innerHTML = "<center class='text-danger'>Too many failed attempts. Please reset.</center>";
+            }
+            break; 
+        }
+    }
+}
+</script>
+</body>
+</html>
